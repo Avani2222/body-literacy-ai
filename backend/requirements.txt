@@ -1,0 +1,10 @@
+passlib[bycrypt]
+python-jose[cryptography]
+python-dotenv
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+alembic
+openai
+openrouter          
