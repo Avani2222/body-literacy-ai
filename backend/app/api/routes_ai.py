@@ -41,7 +41,7 @@ def get_insight(data: UserInput, db: Session = Depends(get_db), current_user: Au
 
         print("🧠 AI RESULT >>>", result)  # <-- THIS SHOULD PRINT
 
-        return {"insight": result}
+        return result
 
     except Exception as e:
         print("❌ ERROR:", e)

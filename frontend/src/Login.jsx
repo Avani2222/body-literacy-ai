@@ -20,16 +20,69 @@ export default function LoginPage() {
     return () => { document.body.style.fontFamily = prev; };
   }, []);
 
-  const styles = {
-    page: { maxWidth: 520, margin: '48px auto', fontFamily: "Poppins, Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial", color: '#3b0a29', padding: 12 },
-    card: { background: '#fff5f8', padding: 20, borderRadius: 10, boxShadow: '0 8px 30px rgba(59,10,41,0.06)', overflow: 'hidden' },
-    title: { margin: '0 0 8px 0', color: '#501038' },
-    input: { width: '100%', padding: '10px 12px', borderRadius: 8, border: '1px solid #ffd6ec', marginBottom: 12, boxSizing: 'border-box', background: '#fff' },
-    primaryBtn: { width: '100%', background: '#e91e63', color: '#fff', border: 'none', padding: '10px 14px', borderRadius: 8, cursor: 'pointer', boxSizing: 'border-box' },
-    smallMeta: { fontSize: 13, color: '#6b2750', marginTop: 8 },
-    error: { color: '#9c0a3a', marginBottom: 8 },
-    subtleLink: { color: '#e91e63', textDecoration: 'none', marginLeft: 6 }
-  };
+const styles = {
+  page: {
+    height: '98dvh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff0f5',
+    padding: '16px',
+    boxSizing: 'border-box',
+  },
+
+  card: {
+    width: '100%',
+    maxWidth: '400px',
+    background: '#fff',
+    borderRadius: '20px',
+    padding: '24px',
+    boxSizing: 'border-box',
+    boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+  },
+
+  title: {
+    textAlign: 'center',
+    marginBottom: '8px',
+  },
+
+  smallMeta: {
+    textAlign: 'center',
+    color: '#666',
+    marginBottom: '24px',
+  },
+
+  input: {
+    width: '100%',
+    padding: '12px',
+    marginBottom: '12px',
+    border: '1px solid #ddd',
+    borderRadius: '8px',
+    boxSizing: 'border-box',
+  },
+
+  primaryBtn: {
+    width: '100%',
+    padding: '12px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    backgroundColor: '#e86b8f',
+    color: '#fff',
+    fontWeight: 600,
+  },
+
+  subtleLink: {
+    marginLeft: '6px',
+    color: '#e86b8f',
+    textDecoration: 'none',
+  },
+
+  error: {
+    marginBottom: '12px',
+    color: '#d32f2f',
+  },
+};
 
   async function handleLogin(e) {
     e.preventDefault();

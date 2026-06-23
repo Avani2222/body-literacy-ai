@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 export default function DashboardFormExample() {
   const [cyclePhase, setCyclePhase] = useState('');
   const [moodCategory, setMoodCategory] = useState('');
@@ -24,36 +25,128 @@ export default function DashboardFormExample() {
 
   // simple inline styles for a cleaner look
   const styles = {
-    page: { maxWidth: 900, margin: '18px auto', fontFamily: 'Inter, system-ui, Arial', color: '#3b0a29' },
-    header: { display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' },
-    subtitle: { color: '#6b2750', marginTop: 6 },
-    card: { background: '#fff5f8', padding: 18, borderRadius: 10, boxShadow: '0 6px 18px rgba(59,10,41,0.06)', marginTop: 12 },
-    formGroup: { marginBottom: 12 },
-    formLabel: { display: 'block', marginBottom: 6, fontWeight: 600, color: '#501038' },
-    // ensure consistent sizing for all inputs (includes number input)
-    input: { padding: '8px 10px', borderRadius: 6, border: '1px solid #ffd6ec', width: '100%', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', display: 'block' },
-    actionsRow: { display: 'flex', gap: 12, alignItems: 'center', marginTop: 10 },
-    primaryBtn: { background: '#e91e63', color: '#fff', border: 'none', padding: '10px 14px', borderRadius: 8, cursor: 'pointer' },
-    secondaryBtn: { background: '#ffd6e8', color: '#4b0025', border: 'none', padding: '10px 12px', borderRadius: 8, cursor: 'pointer' },
-    predictCard: { background: '#fff0f6', padding: 16, borderRadius: 10, marginTop: 12, border: '1px solid #ffd6e8' },
-    twoColumn: {
-      display: 'flex',
-      gap: 12,
-      alignItems: 'flex-start',
-      marginTop: 12,
-      flexWrap: 'wrap'
-    },
-    predictColumn: {
-      flex: '0 0 340px',
-      minWidth: 300
-    },
-    insightColumn: {
-      flex: '0 0 340px',
-      minWidth: 300
-    },
-    predictionsPanel: { marginTop: 16, display: 'grid', gap: 12 },
-    smallMeta: { fontSize: 13, color: '#6b2750' }
-  };
+  page: {
+    minHeight: '98dvh',
+    backgroundColor: '#fff0f5',
+    padding: '16px',
+    boxSizing: 'border-box',
+    fontFamily: 'Inter, system-ui, Arial',
+    color: '#3b0a29',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+
+  container: {
+    width: '100%',
+    maxWidth: '900px',
+  },
+
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    marginBottom: '12px',
+  },
+
+  subtitle: {
+    color: '#666',
+    marginTop: '6px',
+  },
+
+  card: {
+    background: '#fff',
+    padding: '24px',
+    borderRadius: '20px',
+    boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+    marginTop: '12px',
+    boxSizing: 'border-box',
+  },
+
+  formGroup: {
+    marginBottom: '16px',
+  },
+
+  formLabel: {
+    display: 'block',
+    marginBottom: '6px',
+    fontWeight: 600,
+    color: '#3b0a29',
+  },
+
+  input: {
+    width: '100%',
+    padding: '12px',
+    border: '1px solid #ddd',
+    borderRadius: '8px',
+    boxSizing: 'border-box',
+    background: '#fff',
+  },
+
+  actionsRow: {
+    display: 'flex',
+    gap: '12px',
+    marginTop: '16px',
+    flexWrap: 'wrap',
+  },
+
+  primaryBtn: {
+    padding: '12px 16px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    backgroundColor: '#e86b8f',
+    color: '#fff',
+    fontWeight: 600,
+  },
+
+  secondaryBtn: {
+    padding: '12px 16px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    backgroundColor: '#f8d7e3',
+    color: '#3b0a29',
+    fontWeight: 500,
+  },
+
+  predictCard: {
+    background: '#fff',
+    padding: '20px',
+    borderRadius: '16px',
+    marginTop: '12px',
+    border: '1px solid #f3d6df',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.04)',
+  },
+
+  twoColumn: {
+    display: 'flex',
+    gap: '16px',
+    marginTop: '16px',
+    flexWrap: 'wrap',
+  },
+
+  predictColumn: {
+    flex: '1 1 340px',
+    minWidth: '300px',
+  },
+
+  insightColumn: {
+    flex: '1 1 340px',
+    minWidth: '300px',
+  },
+
+  predictionsPanel: {
+    marginTop: '16px',
+    display: 'grid',
+    gap: '12px',
+  },
+
+  smallMeta: {
+    color: '#666',
+    fontSize: '14px',
+  },
+};
 
   function parseJwt(token) {
     if (!token) return null;
@@ -308,6 +401,7 @@ export default function DashboardFormExample() {
 
   return (
     <div style={styles.page}>
+      <div style={styles.container}>
       <div style={styles.header}>
         <h1 style={{ margin: 0 }}>Body Literacy AI</h1>
         <div className="small-meta" style={styles.smallMeta}>User: {user_id ?? 'guest'}</div>
@@ -321,7 +415,7 @@ export default function DashboardFormExample() {
         </div>
       )}
 
-      <div style={styles.card}>
+      <div style={styles.predictCard}>
         <form onSubmit={handleSubmit}>
           <div style={styles.formGroup}>
             <label style={styles.formLabel}>Cycle phase</label>
@@ -370,31 +464,16 @@ export default function DashboardFormExample() {
       </div>
 
       {/* two-column layout: predict (fixed width) + insight (flex) */}
-      <div style={styles.twoColumn}>
-        <div style={{ ...styles.predictCard, ...styles.predictColumn }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <strong>Predict future behaviours</strong>
-              <div style={styles.smallMeta}>Retrain the model and predict near-term mood/energy.</div>
-            </div>
-            <div>
-              <button
-                type="button"
-                onClick={handlePredictFutureBehaviours}
-                style={styles.secondaryBtn}
-                disabled={loading}
-              >
-                {loading ? 'Working…' : 'Predict future behaviours'}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ ...styles.card, ...styles.insightColumn }}>
+      <div style={{ marginTop: 12 }}>
+        <div
+          style={{
+            ...styles.predictCard,
+            marginTop: 12
+          }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <strong>Insight</strong>
-              <div style={styles.smallMeta}>This will generate a personalized textual insight.</div>
+              <div style={styles.smallMeta}>Receive a personalized insight tailored to your history and supported by evidence from multiple research papers, clinical studies, and trusted scientific documents.</div>
             </div>
             <div>
               <button
@@ -408,39 +487,94 @@ export default function DashboardFormExample() {
             </div>
           </div>
           <div style={{ marginTop: 10 }}>
-            {insight && typeof insight === 'object' ? (
-              <div style={{ background: '#f8f9fa', padding: 12, borderRadius: 6 }}>
-                {insight.biological_explanation && (
-                  <div style={{ marginBottom: 10 }}>
-                    <strong>Biological explanation</strong>
-                    <div style={{ marginTop: 6 }}>{insight.biological_explanation}</div>
+            {insight && typeof insight === "object" ? (
+              <div
+                style={{
+                  background: "#f8f9fa",
+                  padding: 12,
+                  borderRadius: 6
+                }}
+              >
+                <div
+                  style={{
+                    lineHeight: 1.6
+                  }}
+                >
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {insight.insight || ""}
+                  </ReactMarkdown>
+                </div>
+
+                {insight.confidence && (
+                  <div
+                    style={{
+                      marginTop: 16,
+                      paddingTop: 12,
+                      borderTop: "1px solid #ddd"
+                    }}
+                  >
+                    <strong>Confidence:</strong> {insight.confidence}
                   </div>
                 )}
-                {insight.why_user_feels_this_way && (
-                  <div style={{ marginBottom: 10 }}>
-                    <strong>Why you feel this way</strong>
-                    <div style={{ marginTop: 6 }}>{insight.why_user_feels_this_way}</div>
-                  </div>
-                )}
-                {insight.practical_suggestions && (
-                  <div>
-                    <strong>Practical suggestions</strong>
-                    <ul style={{ marginTop: 6 }}>
-                      {Array.isArray(insight.practical_suggestions)
-                        ? insight.practical_suggestions.map((s, i) => <li key={i}>{s}</li>)
-                        : String(insight.practical_suggestions).split('\n').map((s, i) => <li key={i}>{s}</li>)}
+
+                {insight.sources?.length > 0 && (
+                  <div
+                    style={{
+                      marginTop: 16,
+                      paddingTop: 12,
+                      borderTop: "1px solid #ddd"
+                    }}
+                  >
+                    <strong>Sources</strong>
+
+                    <ul style={{ marginTop: 8 }}>
+                      {insight.sources.map((source, idx) => (
+                        <li key={idx}>
+                          {source.source}
+                          {source.page && ` (Page ${source.page})`}
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 )}
               </div>
-            ) : (
-              <pre style={{ whiteSpace: 'pre-wrap', background: '#f8f9fa', padding: 12, borderRadius: 6 }}>
-                {insight || (loading ? 'Generating insight...' : 'No insight yet')}
-              </pre>
-            )}
+            ) : 
+            insight?(
+              <div
+                style={{
+                  background: "#f8f9fa",
+                  padding: 12,
+                  borderRadius: 6
+                }}
+              >
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {insight}
+                </ReactMarkdown>
+              </div>
+            ): null}
           </div>
         </div>
       </div>
+        <div style={styles.predictCard}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <strong>Predict future behaviours</strong>
+              <div style={styles.smallMeta}>Predict your future mood and energy levels based on your personal history and past patterns.</div>
+            </div>
+            <div>
+              <button
+                type="button"
+                onClick={handlePredictFutureBehaviours}
+                style={styles.primaryBtn}
+                disabled={loading}
+              >
+                {loading ? 'Working…' : 'Predict future behaviours'}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        
 
       {predictions && (
         <div style={styles.card}>
@@ -459,6 +593,7 @@ export default function DashboardFormExample() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

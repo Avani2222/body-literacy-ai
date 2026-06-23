@@ -1,38 +1,93 @@
 # Body Literacy AI
 
-Small local project with a Vite React frontend and a backend (see backend folder).
+Body Literacy AI is an application designed to assist users in understanding and engaging with body literacy concepts through adaptive, privacy-first AI tools. It provides educational content, interactive guidance, and personalized learning paths while emphasizing safety, consent, and data privacy.
+
+## Key features
+- Guided educational modules about anatomy, physiology, menstrual health, and body awareness.
+- Conversational assistant for answering body-literacy questions with evidence-backed responses.
+- Personalization and progress tracking (opt-in).
+- Privacy-first design: minimal data retention and strong anonymization.
+- Extensible architecture for adding models, datasets, and workflows.
 
 ## Quick start
 
-Frontend
-- cd frontend
-- npm install
-- npm start
-- Open http://localhost:5173
+Prerequisites
+- Node.js 16+ (or the project's specified runtime)
+- npm or yarn
+- (Optional) Python 3.x for model utilities
 
-Backend (general)
-- cd backend
-- Inspect package.json or requirements.txt to see exact commands
-- Node: npm install && npm run dev (or npm start)
-- Python (FastAPI/Flask): create venv, pip install -r requirements.txt, then `uvicorn main:app --reload` or `flask run`
+Install
+```bash
+# from project root
+npm install
+# or
+yarn install
+```
 
-## Environment
-- Copy any `.env.example` to `.env` and set required secrets (PORT, DATABASE_URL, SECRET_KEY).
-- DB: run migrations/seeds if applicable.
+Run (development)
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-## Troubleshooting
-- If Vite complains about JSX in `.js` files:
-  - Ensure `@vitejs/plugin-react` is installed and enabled in `vite.config.js`, and `package.json` may include `"type": "module"`; or
-  - Rename files containing JSX from `.js` → `.jsx` and update imports.
-- If imports fail for `react-router-dom`, run `npm install react-router-dom`.
-- If dev server fails after dependencies changed run a full restart and `npm install`.
+Build (production)
+```bash
+npm run build
+npm start
+```
 
-## Development notes
-- Frontend entry is `/src/index.jsx` and served by `/index.html` at project root.
-- Keep sensitive data out of the repo; add to `.gitignore` (already configured).
+Run tests
+```bash
+npm test
+# or your project's test command
+```
+
+## Project structure (high level)
+- /src - application source code (frontend, backend, API handlers)
+- /models - model interfaces, adapters, and checkpoints (managed separately)
+- /data - curated, consented, and anonymized datasets for training/validation
+- /scripts - developer and deployment scripts
+- /docs - extended documentation and design notes
+
+## Architecture overview
+The application follows a modular architecture:
+- Frontend: UI components and flows for learning modules and chat.
+- Backend: API, auth, business logic, and safe-response filtering.
+- Model layer: pluggable model adapters that query local or hosted models.
+- Persistence: optional, encrypted storage for opt-in progress data.
+
+Design principles:
+- Safety-first responses with content moderation and expert-reviewed content.
+- Privacy-by-default: do not store sensitive user data unless explicitly consented.
+- Modular & extensible to allow swapping model providers or adding new modules.
+
+## Data, safety, and ethics
+- Use only consented datasets and expert-reviewed educational material.
+- Implement layered safety checks: input validation, model output filtering, and human-in-the-loop review for sensitive cases.
+- Provide clear disclaimers: this tool is educational and not a substitute for professional medical advice.
+- Follow applicable regulations and best practices for handling health-related information (HIPAA, GDPR as relevant).
 
 ## Contributing
-- Open an issue or create a PR with a short description of changes.
+- Read the contributor guidelines in /docs/CONTRIBUTING.md (or create one if missing).
+- Open issues for bugs or feature requests.
+- Fork, create a feature branch, and submit a PR with clear descriptions and tests.
+- All contributions should respect the privacy and safety guidelines.
+
+## Deployment & hosting
+- Provide environment variables and secrets via a secure secret manager.
+- Prefer managed hosting with TLS and automatic updates.
+- Use CI for testing, linting, and security checks before deployment.
+
+## Troubleshooting & support
+- Check logs in /logs or the configured logging provider.
+- Run linter and test suites locally: `npm run lint`, `npm test`.
+- For model-specific issues, consult /models/README.md or the model provider documentation.
 
 ## License
-- Add a LICENSE file or update this README with licensing information.
+Specify your license here, e.g. MIT. Update LICENSE file accordingly.
+
+## Contact
+For questions, feature requests, or contributions: add a contact email or link to the project's issue tracker.
+
+<!-- End of README -->
